@@ -1,0 +1,62 @@
+Implementation of Stack class
+______________________________
+using 1d Vectors:
+
+class MinStack {
+public:
+    multiset<int> s;           
+    vector<int> st;       
+
+    MinStack() {}
+
+    void push(int val) {
+        st.push_back(val);
+        s.insert(val);     
+    }
+
+    void pop() {
+        int topElement = st.back();  
+        st.pop_back();              
+        s.erase(s.find(topElement)); 
+    }
+
+    int top() {
+        return st.empty() ? -1 : st.back(); 
+    }
+
+    int getMin() {
+        return *s.begin(); 
+    }
+};
+_______________________________________
+using 2D Vectors:
+
+class MinStack {
+private:
+    vector<vector<int>> st;
+
+public:
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        int min_val = getMin();
+        if (st.empty() || min_val > val) {
+            min_val = val;
+        }
+        st.push_back({val, min_val});        
+    }
+    
+    void pop() {
+        st.pop_back();
+    }
+    
+    int top() {
+        return st.empty() ? -1 : st.back()[0];
+    }
+    
+    int getMin() {
+        return st.empty() ? -1 : st.back()[1]; 
+    }
+};
